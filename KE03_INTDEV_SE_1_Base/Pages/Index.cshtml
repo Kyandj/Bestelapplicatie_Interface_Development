@@ -1,0 +1,32 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+        <button onclick="window.location.href='/ArtikelpaginaTandwiel'">
+			<img src="/Images/Tandwiel.jpg" alt="Tandwiel" width="150"><br />
+			Tandwiel<br/>
+            EUR 8,99
+            </button>
+        </div>
+        <div class="col-sm">kolom 2</div>
+        <div class="col-sm">kolom 3</div>
+        <div class="col-sm">kolom 4</div>
+    </div>
+</div>
+
+<!-- Shopping Cart -->
+<div class="shopping-cart-container">
+    <a href="/Winkelmandje" class="shopping-cart">
+        <img src="~/Images/Winkelmandje.png" alt="Winkelmandje" class="cart-icon">
+        <span class="cart-count">0</span>
+    </a>
+</div>

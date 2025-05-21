@@ -1,0 +1,63 @@
+﻿@page
+@model KE03_INTDEV_SE_1_Base.Pages.AfrekenpaginaModel
+@{
+    ViewData["Title"] = "Afrekenen";
+}
+
+<div class="container py-5 bg-light min-vh-100">
+    <h2 class="text-center text-danger mb-5">Afrekenen</h2>
+
+    <div class="row g-4">
+        <!-- Linkerkant: Terug + Betaling -->
+        <div class="col-12 col-lg-3">
+                <a href="/Winkelmandje" class="btn btn-outline-dark rounded-pill">Terug</a>
+            <div class="d-grid gap-3">
+                <h5 class="mt-4">Betaalmethode</h5>
+                <button class="btn btn-outline-dark rounded-pill">iDeal</button>
+                <button class="btn btn-outline-dark rounded-pill">Paypal</button>
+                <button class="btn btn-outline-dark rounded-pill">Apple Pay</button>
+                <button class="btn btn-outline-dark rounded-pill">Credit Card</button>
+            </div>
+        </div>
+
+        <!-- Midden: Artikelen -->
+        <div class="col-12 col-lg-5">
+            <div class="card">
+                <div class="card-header fw-bold">Artikelen</div>
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="/images/Tandwiel.png" class="img-thumbnail me-3" style="width: 60px; height: 60px;" alt="Tandwiel">
+                        <div>
+                            <div>Tandwiel</div>
+                            <div class="text-muted">€26,99</div>
+                            <div class="text-muted">Aantal: 1</div>
+                        </div>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <img src="/images/Schroef.png" class="img-thumbnail me-3" style="width: 60px; height: 60px;" alt="Schroef">
+                        <div>
+                            <div>Schroef</div>
+                            <div class="text-muted">€3,99</div>
+                            <div class="text-muted">Aantal: 2</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button onclick="window.location.href='/Afgerondpagina'" class="btn btn-outline-dark rounded-pill px-4">Afronden</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rechterkant: Gegevens -->
+        <div class="col-12 col-lg-4">
+            <div class="card">
+                <div class="card-header fw-bold">Gegevens</div>
+                <div class="card-body">
+                    <p><strong>e-mail:</strong><br> ...</p>
+                    <p><strong>adres:</strong><br> ...</p>
+                    <p><strong>Uiterlijke Leverdatum:</strong><br> ...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

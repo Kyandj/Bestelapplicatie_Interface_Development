@@ -1,0 +1,188 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+/* Winkelmandje button */
+.shopping-cart-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.shopping-cart {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    padding: 8px 12px;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s;
+}
+
+.shopping-cart:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.cart-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+/* Pagina Winkelmandje */
+
+.cart-page {
+    background-color: #d9d9d9;
+    min-height: 100vh;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    position: relative;
+}
+
+    .cart-page h2 {
+        color: #400000;
+        margin-bottom: 20px;
+    }
+
+.cart-box {
+    background-color: #efefef;
+    border: 2px solid #aaa;
+    border-radius: 20px;
+    padding: 20px;
+    width: 400px;
+    margin: 0 auto;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #aaa;
+    padding: 10px 0;
+}
+
+    .cart-item img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+        border: 1px solid #ccc;
+        background-color: white;
+    }
+
+.item-info {
+    flex-grow: 1;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.item-name {
+    display: block;
+    font-weight: bold;
+}
+
+.item-price {
+    display: block;
+    color: #555;
+    font-size: 14px;
+}
+
+.item-quantity {
+    text-align: right;
+    font-size: 14px;
+}
+
+    .item-quantity form {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .item-quantity button {
+        width: 26px;
+        height: 26px;
+        font-size: 18px;
+        font-weight: bold;
+        border: 1px solid #888;
+        background-color: white;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+
+        .item-quantity button:hover {
+            background-color: #ddd;
+        }
+
+    .item-quantity span {
+        min-width: 20px;
+        display: inline-block;
+        text-align: center;
+        font-weight: bold;
+    }
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    padding: 10px 0;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #aaa;
+    margin-top: 10px;
+}
+
+.checkout-btn {
+    margin-top: 20px;
+}
+
+    .checkout-btn button {
+        padding: 10px 20px;
+        border: 2px solid black;
+        border-radius: 20px;
+        background-color: white;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .checkout-btn button:hover {
+            background-color: #ddd;
+        }
+
+.back-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border: 2px solid black;
+    border-radius: 20px;
+    background-color: white;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+    position: absolute;
+    left: 30px;
+    top: 30px;
+}
+
