@@ -1,4 +1,5 @@
-﻿using DataAccessLayer.Models;
+﻿using DataAccessLayer.Interfaces;
+using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text.Json;
 
 namespace KE03_INTDEV_SE_1_Base.Services
 {
-    public class CartService
+    public class CartService : ICartService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
@@ -47,6 +48,5 @@ namespace KE03_INTDEV_SE_1_Base.Services
 
             _httpContextAccessor.HttpContext!.Session.SetString("Cart", JsonSerializer.Serialize(cart));
         }
-
     }
 }

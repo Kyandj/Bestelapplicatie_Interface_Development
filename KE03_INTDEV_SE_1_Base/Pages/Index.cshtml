@@ -1,39 +1,37 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Onze Producten";
 }
 
 <head>
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css">
 </head>
 
-<div class="container">
-    <div class="row">
-        <div class="col-sm">
-        <button onclick="window.location.href='/ArtikelpaginaTandwiel'">
-			<img src="/Images/Tandwiel.jpg" alt="Tandwiel" width="150"><br />
-			Tandwiel<br/>
-            EUR 8,99
-            </button>
-        </div>
-        <div class="col-sm">kolom 2</div>
-        <div class="col-sm">kolom 3</div>
-        <div class="col-sm">kolom 4</div>
+<div class="container my-5">
+    <h2 class="text-center mb-4">Onze Producten</h2>
+
+    <div class="row g-4">
+        @foreach (var product in Model.Products)
+        {
+            <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card h-100 shadow-sm">
+                    <img src="~/Images/@(product.Name.Replace(" ", "")).png"
+                         class="card-img-top" alt="@product.Name"
+                         style="height: 200px; object-fit: cover;" />
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@product.Name</h5>
+                        <p class="card-text text-muted">@product.Description</p>
+                        <p class="card-text fw-bold">€ @product.Price.ToString("0.00")</p>
+
+                        <form method="post" asp-page-handler="AddToCart" class="mt-auto">
+                            <input type="hidden" name="id" value="@product.Id" />
+                            <button type="submit" class="btn btn-primary w-100">Toevoegen aan winkelmandje</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
-</div>
-
-<!-- Shopping Cart -->
-<div class="shopping-cart-container">
-    <a href="/Winkelmandje" class="shopping-cart">
-        <img src="~/Images/Winkelmandje.png" alt="Winkelmandje" class="cart-icon">
-        <span class="cart-count">0</span>
-    </a>
-</div>
-
-<!-- Mijn Bestellingen  -->
-<div class="shopping-cart-container" style="right: 100px;">
-    <a href="/Orderhistorie" class="shopping-cart">
-        <span>Mijn bestellingen</span>
-    </a>
 </div>

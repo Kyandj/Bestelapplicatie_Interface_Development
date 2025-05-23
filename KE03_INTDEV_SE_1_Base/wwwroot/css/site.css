@@ -1,5 +1,7 @@
+/* ===== Algemene Basisstijl ===== */
 html {
   font-size: 14px;
+  scroll-behavior: smooth;
 }
 
 @media (min-width: 768px) {
@@ -8,286 +10,268 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f8;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
 }
 
-/* Winkelmandje button */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ===== Buttons ===== */
+button,
+.header-button,
+.checkout-btn-large,
+.btn-terug,
+.back-button {
+  padding: 10px 20px;
+  border-radius: 30px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover,
+.header-button:hover,
+.checkout-btn-large:hover,
+.btn-terug:hover,
+.back-button:hover {
+  opacity: 0.9;
+}
+
+.header-button {
+  background: #007bff;
+  color: white;
+}
+
+.checkout-btn-large {
+  background: linear-gradient(135deg, #e53935, #ffb300);
+  color: white;
+}
+
+.btn-terug,
+.back-button {
+  background: white;
+  border: 2px solid black;
+}
+
+/* ===== Winkelmandje Floating Button ===== */
 .shopping-cart-container {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
 }
 
 .shopping-cart {
-    display: flex;
-    align-items: center;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 30px;
-    padding: 8px 12px;
-    text-decoration: none;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    transition: box-shadow 0.3s;
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  padding: 10px 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .shopping-cart:hover {
-    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
-.cart-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 8px;
-}
-
-/* Pagina Winkelmandje */
-
+/* ===== Pagina Winkelmandje ===== */
 .cart-page {
-    background-color: #d9d9d9;
-    min-height: 100vh;
-    padding: 20px;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    position: relative;
+  background-color: #f0f0f0;
+  padding: 40px 20px;
+  text-align: center;
 }
 
-    .cart-page h2 {
-        color: #400000;
-        margin-bottom: 20px;
-    }
+.cart-page h2 {
+  color: #c62828;
+  margin-bottom: 30px;
+}
 
 .cart-box {
-    background-color: #efefef;
-    border: 2px solid #aaa;
-    border-radius: 20px;
-    padding: 20px;
-    width: 400px;
-    margin: 0 auto;
+  background: white;
+  border-radius: 20px;
+  padding: 24px;
+  max-width: 500px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .cart-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid #aaa;
-    padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid #eee;
 }
 
-    .cart-item img {
-        width: 60px;
-        height: 60px;
-        object-fit: cover;
-        border: 1px solid #ccc;
-        background-color: white;
-    }
+.cart-item img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 6px;
+}
 
 .item-info {
-    flex-grow: 1;
-    text-align: left;
-    margin-left: 10px;
+  flex-grow: 1;
+  margin-left: 12px;
+  text-align: left;
 }
 
 .item-name {
-    display: block;
-    font-weight: bold;
+  font-weight: 600;
+  margin-bottom: 4px;
 }
 
 .item-price {
-    display: block;
-    color: #555;
-    font-size: 14px;
+  color: #666;
 }
 
-.item-quantity {
-    text-align: right;
-    font-size: 14px;
+.item-quantity form {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-    .item-quantity form {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .item-quantity button {
-        width: 26px;
-        height: 26px;
-        font-size: 18px;
-        font-weight: bold;
-        border: 1px solid #888;
-        background-color: white;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: background-color 0.2s ease;
-    }
-
-        .item-quantity button:hover {
-            background-color: #ddd;
-        }
-
-    .item-quantity span {
-        min-width: 20px;
-        display: inline-block;
-        text-align: center;
-        font-weight: bold;
-    }
-
-.cart-total {
-    display: flex;
-    justify-content: space-between;
-    font-weight: bold;
-    padding: 10px 0;
-    border-top: 1px solid #aaa;
-    border-bottom: 1px solid #aaa;
-    margin-top: 10px;
+.item-quantity button {
+  border: 1px solid #ccc;
+  background: white;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
 }
 
-.checkout-btn {
-    margin-top: 20px;
-}
-
-    .checkout-btn button {
-        padding: 10px 20px;
-        border: 2px solid black;
-        border-radius: 20px;
-        background-color: white;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-        .checkout-btn button:hover {
-            background-color: #ddd;
-        }
-
-.back-button {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    border: 2px solid black;
-    border-radius: 20px;
-    background-color: white;
-    font-weight: bold;
-    text-decoration: none;
-    color: black;
-    position: absolute;
-    left: 30px;
-    top: 30px;
-}
-
-/* Pagina Afgerond */
+/* ===== Pagina Afgerond ===== */
 .confirmation-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #d9d9d9;
-    text-align: center;
-    font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background: #e0e0e0;
+  min-height: 100vh;
 }
 
-    .confirmation-page h1 {
-        font-size: 2rem;
-        color: #400000;
-        margin-bottom: 0.5rem;
-    }
-
-    .confirmation-page p {
-        font-size: 1.2rem;
-        color: #333;
-        margin-bottom: 2rem;
-    }
-
-.btn-terug {
-    padding: 10px 20px;
-    border: 2px solid black;
-    border-radius: 20px;
-    background-color: white;
-    font-weight: bold;
-    text-decoration: none;
-    color: black;
-    transition: background-color 0.3s ease;
+.confirmation-page h1 {
+  color: #2e7d32;
+  margin-bottom: 10px;
 }
 
-    .btn-terug:hover {
-        background-color: #ddd;
-    }
-    /* Afrekenpagina */
-
-.checkout-btn-large {
-    font-size: 1.25em;
-    padding: 16px 48px;
-    border-radius: 32px;
-    background: linear-gradient(90deg, #e53935 0%, #ffb300 100%);
-    color: #fff !important;
-    border: none;
-    font-weight: bold;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: background 0.2s, box-shadow 0.2s;
-    display: inline-block;
-    margin-top: 0;
+.confirmation-page p {
+  font-size: 1.2rem;
+  color: #333;
 }
 
-    .checkout-btn-large:hover {
-        background: linear-gradient(90deg, #ff7043 0%, #ffd54f 100%);
-        color: #222 !important;
-        box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-        text-decoration: none;
-    }
-
-    /* Orderhistoriepagina */
+/* ===== Orderhistorie Pagina ===== */
 .orderhistorie-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 40px 20px;
-    font-family: Arial, sans-serif;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
 .bestelling-kaart {
-    background-color: #f9f9f9;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 24px;
-    margin-top: 24px;
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
-.bestelling-header p {
-    margin: 4px 0;
-    font-size: 16px;
+/* ===== Product Grid Indexpagina ===== */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
 }
 
-.product-lijst {
-    list-style: none;
-    padding: 0;
-    margin-top: 16px;
+.col-sm {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  padding: 16px;
+  text-align: center;
+  width: 240px;
+  transition: transform 0.3s;
 }
 
-.product-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 0;
-    border-bottom: 1px solid #ddd;
+.col-sm:hover {
+  transform: translateY(-5px);
 }
 
-    .product-item:last-child {
-        border-bottom: none;
-    }
+.col-sm img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
 
-.bestelling-totaal {
-    margin-top: 24px;
-    font-size: 18px;
-    text-align: right;
-    color: #333;
+.col-sm button {
+  background: #28a745;
+  color: white;
+  font-size: 14px;
+  border-radius: 6px;
+}
+
+.product-info-btn {
+  background-color: #17a2b8;
+}
+
+/* ===== Checkout Pagina ===== */
+.checkout-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  justify-content: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.checkout-box {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  padding: 20px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.checkout-box-header {
+  font-weight: bold;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.checkout-box-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .checkout-container {
+    flex-direction: column;
+  }
+
+  .col-sm {
+    width: 90%;
+  }
 }

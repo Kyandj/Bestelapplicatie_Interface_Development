@@ -1,26 +1,52 @@
 using KE03_INTDEV_SE_1_Base.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using DataAccessLayer.Models;
+using System.Collections.Generic;
+using System.Linq;
 
-public IActionResult OnPostUpdateAantal(int productId, string action)
+namespace KE03_INTDEV_SE_1_Base.Pages
 {
-    var cart = _cartService.GetCart();
-    var item = cart.FirstOrDefault(x => x.ProductId == productId);
-    if (item != null)
+    public class WinkelmandjeModel : PageModel
     {
-        if (action == "increase")
+        private readonly CartService _cartService;
+
+        public WinkelmandjeModel(CartService cartService)
         {
-            item.Aantal++;
+            _cartService = cartService;
         }
-        else if (action == "decrease")
+
+        // De cart die gebruikt wordt in de view
+        public List<CartItem> Cart { get; private set; }
+
+        public void OnGet()
         {
-            item.Aantal--;
-            if (item.Aantal <= 0)
+            Cart = _cartService.GetCart();
+        }
+
+        public IActionResult OnPostUpdateAantal(int productId, string action)
+        {
+            var cart = _cartService.GetCart();
+            var item = cart.FirstOrDefault(x => x.ProductId == productId);
+
+            if (item != null)
             {
-                cart.Remove(item); // Verwijder het item als het aantal 0 of lager is
+                if (action == "increase")
+                {
+                    item.Aantal++;
+                }
+                else if (action == "decrease")
+                {
+                    item.Aantal--;
+                    if (item.Aantal <= 0)
+                    {
+                        cart.Remove(item);
+                    }
+                }
             }
+
+            HttpContext.Session.SetObject("Cart", cart);
+            return RedirectToPage();
         }
     }
-    HttpContext.Session.SetObject("Cart", cart);
-    return RedirectToPage();
 }
-

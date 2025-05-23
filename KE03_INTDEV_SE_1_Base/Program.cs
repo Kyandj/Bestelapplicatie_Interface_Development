@@ -1,6 +1,7 @@
 using DataAccessLayer;
 using DataAccessLayer.Interfaces;
 using DataAccessLayer.Repositories;
+using KE03_INTDEV_SE_1_Base.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace KE03_INTDEV_SE_1_Base
@@ -25,6 +26,10 @@ namespace KE03_INTDEV_SE_1_Base
             // Add services to the container.
             builder.Services.AddRazorPages();
 
+            builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddSession();
+         
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -43,7 +48,7 @@ namespace KE03_INTDEV_SE_1_Base
                 context.Database.EnsureCreated();
                 MatrixIncDbInitializer.Initialize(context);
             }
-
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

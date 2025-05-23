@@ -4,59 +4,63 @@
     ViewData["Title"] = "Winkelmandje";
 }
 
-<h2>Winkelmandje</h2>
+<h2 class="mb-4">Winkelmandje</h2>
 
-@if (Model.Cart.Count == 0)
+@if (Model.Cart == null || !Model.Cart.Any())
 {
-    <p>Je winkelmandje is leeg.</p>
+    <div class="alert alert-info text-center">
+        Je winkelmandje is leeg.
+    </div>
 }
 else
 {
-    <table class="cart-box" style="margin: 0 auto;">
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Prijs</th>
-                <th>Aantal</th>
-                <th>Totaal</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Cart)
-            {
-                <tr class="cart-item">
-                    <td>
-                        <span class="item-name">@item.Name</span>
-                    </td>
-                    <td>
-                        <span class="item-price">€ @item.Price</span>
-                    </td>
-                    <td class="item-quantity">
-                        <form method="post" asp-page-handler="UpdateAantal" style="display:inline;">
-                            <input type="hidden" name="productId" value="@item.ProductId" />
-                            <button type="submit" name="action" value="decrease">-</button>
-                            <span>@item.Aantal</span>
-                            <button type="submit" name="action" value="increase">+</button>
-                        </form>
-                    </td>
-                    <td>
-                        <span class="item-price">€ @(item.Price * item.Aantal)</span>
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+            <thead class="table-light">
+                <tr>
+                    <th>Product</th>
+                    <th>Prijs</th>
+                    <th class="text-center">Aantal</th>
+                    <th>Totaal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Cart)
+                {
+                    <tr>
+                        <td>@item.Product.Name</td>
+                        <td>€ @item.Product.Price.ToString("0.00")</td>
+                        <td class="text-center">
+                            <form method="post" asp-page-handler="UpdateAantal" class="d-inline">
+                                <input type="hidden" name="productId" value="@item.ProductId" />
+                                <input type="hidden" name="action" value="decrease" />
+                                <button type="submit" class="btn btn-sm btn-outline-secondary">-</button>
+                            </form>
+
+                            <span class="mx-2">@item.Aantal</span>
+
+                            <form method="post" asp-page-handler="UpdateAantal" class="d-inline">
+                                <input type="hidden" name="productId" value="@item.ProductId" />
+                                <input type="hidden" name="action" value="increase" />
+                                <button type="submit" class="btn btn-sm btn-outline-secondary">+</button>
+                            </form>
+                        </td>
+                        <td>€ @(item.Product.Price * item.Aantal).ToString("0.00")</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3" class="text-end fw-bold">Totaal:</td>
+                    <td class="fw-bold">
+                        € @Model.Cart.Sum(x => x.Product.Price * x.Aantal).ToString("0.00")
                     </td>
                 </tr>
-            }
-        </tbody>
-        <tfoot>
-            <tr class="cart-total">
-                <td colspan="3" style="text-align:right;font-weight:bold;">Totaal:</td>
-                <td style="font-weight:bold;">
-                    € @Model.Cart.Sum(i => i.Price * i.Aantal)
-                </td>
-            </tr>
-        </tfoot>
-    </table>
-    <div class="checkout-btn" style="text-align:center; margin-top:20px;">
-        <a asp-page="/Afrekenpagina">
-            <button type="button">Afrekenen</button>
-        </a>
+            </tfoot>
+        </table>
+    </div>
+
+    <div class="text-end mt-3">
+        <a href="/Afrekenen" class="btn btn-success">Ga naar afrekenen</a>
     </div>
 }
