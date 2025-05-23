@@ -4,63 +4,40 @@
     ViewData["Title"] = "Winkelmandje";
 }
 
-<h2 class="mb-4">Winkelmandje</h2>
-
-@if (Model.Cart == null || !Model.Cart.Any())
-{
-    <div class="alert alert-info text-center">
-        Je winkelmandje is leeg.
+<h2 class="text-center">Winkelmandje</h2>
+<div class="cart-container">
+    <a href="javascript:history.back()" class="btn-back">Terug</a>
+    <div class="cart-card">
+        @if (Model.CartItems.Any())
+        {
+            foreach (var item in Model.CartItems)
+            {
+                <div class="cart-item">
+                    <div class="cart-info">
+                        <div>@item.Name</div>
+                        <div>€@item.Price.ToString("0.00")</div>
+                    </div>
+                    <div class="cart-qty">
+                        <form method="post" asp-page-handler="ChangeQuantity">
+                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <button type="submit" name="change" value="-1" class="qty-btn">-</button>
+                            <span>@item.Aantal</span>
+                            <button type="submit" name="change" value="1" class="qty-btn">+</button>
+                        </form>
+                    </div>
+                </div>
+            }
+            <div class="cart-total-row">
+                <span>Totaal</span>
+                <span>€@Model.TotalPrice.ToString("0.00")</span>
+            </div>
+            <form method="get" asp-page="/Afrekenpagina">
+                <button type="submit" class="checkout-btn">Naar afrekenen</button>
+            </form>
+        }
+        else
+        {
+            <div>Winkelmandje is leeg.</div>
+        }
     </div>
-}
-else
-{
-    <div class="table-responsive">
-        <table class="table table-bordered align-middle">
-            <thead class="table-light">
-                <tr>
-                    <th>Product</th>
-                    <th>Prijs</th>
-                    <th class="text-center">Aantal</th>
-                    <th>Totaal</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Cart)
-                {
-                    <tr>
-                        <td>@item.Product.Name</td>
-                        <td>€ @item.Product.Price.ToString("0.00")</td>
-                        <td class="text-center">
-                            <form method="post" asp-page-handler="UpdateAantal" class="d-inline">
-                                <input type="hidden" name="productId" value="@item.ProductId" />
-                                <input type="hidden" name="action" value="decrease" />
-                                <button type="submit" class="btn btn-sm btn-outline-secondary">-</button>
-                            </form>
-
-                            <span class="mx-2">@item.Aantal</span>
-
-                            <form method="post" asp-page-handler="UpdateAantal" class="d-inline">
-                                <input type="hidden" name="productId" value="@item.ProductId" />
-                                <input type="hidden" name="action" value="increase" />
-                                <button type="submit" class="btn btn-sm btn-outline-secondary">+</button>
-                            </form>
-                        </td>
-                        <td>€ @(item.Product.Price * item.Aantal).ToString("0.00")</td>
-                    </tr>
-                }
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="3" class="text-end fw-bold">Totaal:</td>
-                    <td class="fw-bold">
-                        € @Model.Cart.Sum(x => x.Product.Price * x.Aantal).ToString("0.00")
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-
-    <div class="text-end mt-3">
-        <a href="/Afrekenen" class="btn btn-success">Ga naar afrekenen</a>
-    </div>
-}
+</div>

@@ -34,7 +34,7 @@ namespace KE03_INTDEV_SE_1_Base.Pages
                 _cartService.AddToCart(product);
             }
 
-            return RedirectToPage(); // Herlaadt de Index pagina
+            return RedirectToPage();
         }
     }
 }

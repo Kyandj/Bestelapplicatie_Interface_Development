@@ -48,5 +48,13 @@ namespace KE03_INTDEV_SE_1_Base.Services
 
             _httpContextAccessor.HttpContext!.Session.SetString("Cart", JsonSerializer.Serialize(cart));
         }
+        public void AddToCart(int productId, int quantity)
+        {
+        }
+
+        public void RemoveFromCart(int productId, int quantity)
+        {
+        }
+
     }
 }

@@ -1,277 +1,260 @@
-/* ===== Algemene Basisstijl ===== */
-html {
-  font-size: 14px;
-  scroll-behavior: smooth;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
+/* ===== Base Styles ===== */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f6f8;
-  color: #333;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f8f9fa;
+    color: #222;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+h1 {
+    margin-top: 30px;
+    margin-bottom: 24px;
+    font-size: 2rem;
+    text-align: center;
 }
 
-/* ===== Buttons ===== */
-button,
-.header-button,
-.checkout-btn-large,
-.btn-terug,
-.back-button {
-  padding: 10px 20px;
-  border-radius: 30px;
-  border: none;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-button:hover,
-.header-button:hover,
-.checkout-btn-large:hover,
-.btn-terug:hover,
-.back-button:hover {
-  opacity: 0.9;
+/* ===== Header Buttons (top right) ===== */
+.d-flex {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+    margin-bottom: 24px;
 }
 
 .header-button {
-  background: #007bff;
-  color: white;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    padding: 10px 22px;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s;
 }
 
-.checkout-btn-large {
-  background: linear-gradient(135deg, #e53935, #ffb300);
-  color: white;
-}
+    .header-button:hover {
+        background: #0056b3;
+        color: #fff;
+    }
 
-.btn-terug,
-.back-button {
-  background: white;
-  border: 2px solid black;
-}
-
-/* ===== Winkelmandje Floating Button ===== */
-.shopping-cart-container {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 1000;
-}
-
-.shopping-cart {
-  display: flex;
-  align-items: center;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 30px;
-  padding: 10px 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.shopping-cart:hover {
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
-}
-
-/* ===== Pagina Winkelmandje ===== */
-.cart-page {
-  background-color: #f0f0f0;
-  padding: 40px 20px;
-  text-align: center;
-}
-
-.cart-page h2 {
-  color: #c62828;
-  margin-bottom: 30px;
-}
-
-.cart-box {
-  background: white;
-  border-radius: 20px;
-  padding: 24px;
-  max-width: 500px;
-  margin: 0 auto;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-.cart-item {
-  display: flex;
-  justify-content: space-between;
-  padding: 16px 0;
-  border-bottom: 1px solid #eee;
-}
-
-.cart-item img {
-  width: 64px;
-  height: 64px;
-  object-fit: cover;
-  border-radius: 6px;
-}
-
-.item-info {
-  flex-grow: 1;
-  margin-left: 12px;
-  text-align: left;
-}
-
-.item-name {
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.item-price {
-  color: #666;
-}
-
-.item-quantity form {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.item-quantity button {
-  border: 1px solid #ccc;
-  background: white;
-  border-radius: 6px;
-  width: 28px;
-  height: 28px;
-}
-
-/* ===== Pagina Afgerond ===== */
-.confirmation-page {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
-  background: #e0e0e0;
-  min-height: 100vh;
-}
-
-.confirmation-page h1 {
-  color: #2e7d32;
-  margin-bottom: 10px;
-}
-
-.confirmation-page p {
-  font-size: 1.2rem;
-  color: #333;
-}
-
-/* ===== Orderhistorie Pagina ===== */
-.orderhistorie-container {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 40px 20px;
-}
-
-.bestelling-kaart {
-  background: white;
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 24px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-
-/* ===== Product Grid Indexpagina ===== */
+/* ===== Product Grid ===== */
 .row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  justify-content: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    justify-content: center;
+    margin-bottom: 40px;
 }
 
 .col-sm {
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-  padding: 16px;
-  text-align: center;
-  width: 240px;
-  transition: transform 0.3s;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    padding: 20px 18px 24px 18px;
+    text-align: center;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
 }
 
-.col-sm:hover {
-  transform: translateY(-5px);
+    .col-sm:hover {
+        transform: translateY(-4px) scale(1.02);
+    }
+
+    .col-sm img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 12px;
+    }
+
+.fw-bold {
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
 }
 
-.col-sm img {
-  width: 150px;
-  height: 150px;
-  object-fit: cover;
-}
-
-.col-sm button {
-  background: #28a745;
-  color: white;
-  font-size: 14px;
-  border-radius: 6px;
-}
-
+/* ===== Product Specifications Button & Collapse ===== */
 .product-info-btn {
-  background-color: #17a2b8;
+    background: #17a2b8;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 7px 16px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    margin-bottom: 8px;
+    transition: background 0.2s;
 }
 
-/* ===== Checkout Pagina ===== */
-.checkout-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px;
-  justify-content: center;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 20px;
+    .product-info-btn:hover {
+        background: #117a8b;
+    }
+
+.collapse {
+    width: 100%;
+    margin-bottom: 10px;
 }
 
-.checkout-box {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  padding: 20px;
-  width: 100%;
-  max-width: 420px;
+.card.card-body {
+    background: #f1f3f4;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 0.98rem;
+    text-align: left;
+    margin-top: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 
-.checkout-box-header {
-  font-weight: bold;
-  font-size: 1.2em;
-  margin-bottom: 10px;
+/* ===== Add to Cart Button ===== */
+.btn-success {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 9px 18px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s;
 }
 
-.checkout-box-body {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+    .btn-success:hover {
+        background: #218838;
+    }
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+    .row {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+    }
+
+    .col-sm {
+        width: 90%;
+        max-width: 350px;
+    }
 }
 
-.form-control {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+/* Winkelmandje Button */
+.header-button img {
+    height: 28px;
+    width: 28px;
+    display: inline-block;
+    vertical-align: middle;
+    filter: drop-shadow(0 1px 2px rgba(0,0,0,0.10));
+    transition: filter 0.2s;
 }
 
-@media (max-width: 768px) {
-  .row {
+.header-button:hover img {
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.18));
+}
+
+/* Winkelmandje pagina*/
+.cart-container {
+    display: flex;
     flex-direction: column;
-  }
-
-  .checkout-container {
-    flex-direction: column;
-  }
-
-  .col-sm {
-    width: 90%;
-  }
+    align-items: center;
+    margin-top: 32px;
 }
+
+.btn-back {
+    margin-bottom: 16px;
+    padding: 10px 28px;
+    border-radius: 18px;
+    background: #e0e0e0;
+    border: 1px solid #aaa;
+    font-weight: 600;
+    text-decoration: none;
+    color: #222;
+    display: inline-block;
+}
+
+.cart-card {
+    background: #fff;
+    border-radius: 16px;
+    border: 1.5px solid #888;
+    padding: 24px 32px;
+    min-width: 350px;
+    max-width: 420px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 12px;
+}
+
+.cart-img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 18px;
+}
+
+.cart-info {
+    flex: 1;
+}
+
+.cart-qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qty-btn {
+    background: #ccc;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+    .qty-btn:hover {
+        background: #aaa;
+    }
+
+.cart-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-top: 18px;
+    border-top: 1.5px solid #888;
+    padding-top: 10px;
+}
+
+.checkout-btn {
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px 0;
+    border-radius: 18px;
+    background: #e0e0e0;
+    border: 1px solid #aaa;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+    .checkout-btn:hover {
+        background: #d0d0d0;
+    }
+
