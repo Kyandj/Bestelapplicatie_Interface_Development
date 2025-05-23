@@ -224,3 +224,70 @@ body {
     .btn-terug:hover {
         background-color: #ddd;
     }
+    /* Afrekenpagina */
+
+.checkout-btn-large {
+    font-size: 1.25em;
+    padding: 16px 48px;
+    border-radius: 32px;
+    background: linear-gradient(90deg, #e53935 0%, #ffb300 100%);
+    color: #fff !important;
+    border: none;
+    font-weight: bold;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: background 0.2s, box-shadow 0.2s;
+    display: inline-block;
+    margin-top: 0;
+}
+
+    .checkout-btn-large:hover {
+        background: linear-gradient(90deg, #ff7043 0%, #ffd54f 100%);
+        color: #222 !important;
+        box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+        text-decoration: none;
+    }
+
+    /* Orderhistoriepagina */
+.orderhistorie-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: Arial, sans-serif;
+}
+
+.bestelling-kaart {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 24px;
+    margin-top: 24px;
+}
+
+.bestelling-header p {
+    margin: 4px 0;
+    font-size: 16px;
+}
+
+.product-lijst {
+    list-style: none;
+    padding: 0;
+    margin-top: 16px;
+}
+
+.product-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+    .product-item:last-child {
+        border-bottom: none;
+    }
+
+.bestelling-totaal {
+    margin-top: 24px;
+    font-size: 18px;
+    text-align: right;
+    color: #333;
+}

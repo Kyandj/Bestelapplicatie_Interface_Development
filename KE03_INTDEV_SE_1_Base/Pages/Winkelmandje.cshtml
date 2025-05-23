@@ -1,53 +1,62 @@
 ﻿@page
-@model KE03_INTDEV_SE_1_Base.Pages.Winkelmandje
+@model KE03_INTDEV_SE_1_Base.Pages.WinkelmandjeModel
 @{
     ViewData["Title"] = "Winkelmandje";
 }
 
-<div class="container py-5 bg-light min-vh-100">
-    <h2 class="text-center text-danger mb-4">Winkelmandje</h2>
-     <a href="/index" class="btn btn-outline-dark rounded-pill">Terug</a>
+<h2>Winkelmandje</h2>
 
-    <div class="card shadow mx-auto" style="max-width: 600px;">
-        <div class="card-body">
-            <!-- Product 1 -->
-            <div class="d-flex align-items-center justify-content-between border-bottom py-3">
-                <img src="/images/tandwiel.png" alt="Tandwiel" class="img-thumbnail me-3" style="width: 60px; height: 60px;">
-                <div class="flex-grow-1">
-                    <div class="fw-bold">Tandwiel</div>
-                    <div class="text-muted">€26,99</div>
-                </div>
-                <div class="d-flex align-items-center">
-                    <button class="btn btn-outline-secondary btn-sm me-2">−</button>
-                    <span>1</span>
-                    <button class="btn btn-outline-secondary btn-sm ms-2">+</button>
-                </div>
-            </div>
-
-            <!-- Product 2 -->
-            <div class="d-flex align-items-center justify-content-between border-bottom py-3">
-                <img src="/images/schroef.png" alt="Schroef" class="img-thumbnail me-3" style="width: 60px; height: 60px;">
-                <div class="flex-grow-1">
-                    <div class="fw-bold">Schroef</div>
-                    <div class="text-muted">€3,99</div>
-                </div>
-                <div class="d-flex align-items-center">
-                    <button class="btn btn-outline-secondary btn-sm me-2">−</button>
-                    <span>2</span>
-                    <button class="btn btn-outline-secondary btn-sm ms-2">+</button>
-                </div>
-            </div>
-
-            <!-- Totaal -->
-            <div class="d-flex justify-content-between border-top pt-3 mt-3 fw-bold">
-                <span>Totaal</span>
-                <span>€34,97</span>
-            </div>
-
-            <!-- Afrekenen knop -->
-            <div class="text-center mt-4">
-                <button onclick="window.location.href='/Afrekenpagina'" class="btn btn-outline-dark rounded-pill px-4">Naar afrekenen</button>
-            </div>
-        </div>
+@if (Model.Cart.Count == 0)
+{
+    <p>Je winkelmandje is leeg.</p>
+}
+else
+{
+    <table class="cart-box" style="margin: 0 auto;">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Prijs</th>
+                <th>Aantal</th>
+                <th>Totaal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Cart)
+            {
+                <tr class="cart-item">
+                    <td>
+                        <span class="item-name">@item.Name</span>
+                    </td>
+                    <td>
+                        <span class="item-price">€ @item.Price</span>
+                    </td>
+                    <td class="item-quantity">
+                        <form method="post" asp-page-handler="UpdateAantal" style="display:inline;">
+                            <input type="hidden" name="productId" value="@item.ProductId" />
+                            <button type="submit" name="action" value="decrease">-</button>
+                            <span>@item.Aantal</span>
+                            <button type="submit" name="action" value="increase">+</button>
+                        </form>
+                    </td>
+                    <td>
+                        <span class="item-price">€ @(item.Price * item.Aantal)</span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr class="cart-total">
+                <td colspan="3" style="text-align:right;font-weight:bold;">Totaal:</td>
+                <td style="font-weight:bold;">
+                    € @Model.Cart.Sum(i => i.Price * i.Aantal)
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    <div class="checkout-btn" style="text-align:center; margin-top:20px;">
+        <a asp-page="/Afrekenpagina">
+            <button type="button">Afrekenen</button>
+        </a>
     </div>
-</div>
+}

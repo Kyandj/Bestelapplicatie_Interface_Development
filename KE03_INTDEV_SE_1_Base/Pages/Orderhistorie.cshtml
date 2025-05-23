@@ -1,6 +1,40 @@
 ﻿@page
 @model KE03_INTDEV_SE_1_Base.Pages.OrderhistorieModel
 @{
+    ViewData["Title"] = "Mijn Bestelling";
 }
-<button onclick="window.location.href='/index'"> Terug </button>
 
+<div class="bestelling-container">
+    <h1>Mijn Laatste Bestelling</h1>
+
+    @if (Model.LaatsteBestelling != null)
+    {
+        <div class="bestelling-info">
+            <div class="bestelling-header">
+                <p><strong>Besteld op:</strong> @Model.LaatsteBestelling.OrderDate.ToString("dd-MM-yyyy HH:mm")</p>
+                <p><strong>Naam:</strong> @Model.LaatsteBestelling.Customer.Name</p>
+                <p><strong>Adres:</strong> @Model.LaatsteBestelling.Customer.Address</p>
+            </div>
+
+            <h2>Producten</h2>
+            <ul class="product-lijst">
+                @foreach (var product in Model.LaatsteBestelling.Products)
+                {
+                    <li class="product-item">
+                        <span>@product.Name</span>
+                        <span>€ @product.Price</span>
+                    </li>
+                }
+            </ul>
+
+            <div class="bestelling-totaal">
+                <strong>Totaal:</strong>
+                € @Model.LaatsteBestelling.Products.Sum(p => p.Price)
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>Geen bestelling gevonden.</p>
+    }
+</div>
