@@ -4,59 +4,51 @@
     ViewData["Title"] = "Afrekenen";
 }
 
-<form method="post">
-    <div class="checkout-container">
-        <div class="checkout-sidebar">
-            <a asp-page="/Winkelmandje" class="back-button" style="margin-top: 60px; margin-bottom: 40px;">Terug</a>
-            <h2 class="checkout-title">Betaalmethode</h2>
-            <button class="pay-btn" type="button">iDeal</button>
-            <button class="pay-btn" type="button">Paypal</button>
-            <button class="pay-btn" type="button">Apple Pay</button>
-            <button class="pay-btn" type="button">Credit Card</button>
-        </div>
-        <div class="checkout-main">
-            <h1 class="checkout-header">Afrekenen</h1>
-            <div class="checkout-content">
-                <div class="checkout-articles">
-                    <div class="checkout-box">
-                        <div class="checkout-box-header"><b>Artikelen</b></div>
-                        <div class="checkout-box-body">
-                            @foreach (var item in Model.Cart)
-                            {
-                                <div class="checkout-article">
-                                    <img src="~/Images/@($"{item.Name.Replace(" ", "")}.png")" alt="@item.Name" class="checkout-article-img" />
-                                    <div>
-                                        <div class="checkout-article-name">@item.Name</div>
-                                        <div class="checkout-article-price">€ @item.Price</div>
-                                        <div class="checkout-article-qty">Aantal: @item.Aantal</div>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                        <div class="checkout-box-footer">
-                            <b>Totaal: € @Model.Cart.Sum(i => i.Price * i.Aantal)</b>
-                        </div>
-                    </div>
-                </div>
-                <div class="checkout-details">
-                    <div class="checkout-box">
-                        <div class="checkout-box-header"><b>Gegevens</b></div>
-                        <div class="checkout-box-body">
-                            <div class="form-group">
-                                <label for="Naam"><b>Naam:</b></label>
-                                <input asp-for="Naam" class="form-control" required />
-                            </div>
-                            <div class="form-group">
-                                <label for="Adres"><b>Adres:</b></label>
-                                <input asp-for="Adres" class="form-control" required />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div style="width:100%;text-align:center;margin-top:40px;">
-                <button type="submit" class="checkout-btn" style="display:inline-block;">Afronden</button>
-            </div>
+<h2 class="checkout-title">Afrekenen</h2>
+<div class="checkout-container">
+
+    <div class="checkout-sidebar">
+        <a href="/Winkelmandje" class="btn-back">Terug</a>
+        <div class="payment-methods">
+            <button type="button" class="payment-btn">iDeal</button>
+            <button type="button" class="payment-btn">Paypal</button>
+            <button type="button" class="payment-btn">Apple Pay</button>
+            <button type="button" class="payment-btn">Credit Card</button>
         </div>
     </div>
-</form>
+
+    <div class="checkout-main">
+
+        <div class="checkout-card">
+            <h3>Artikelen</h3>
+            <div class="checkout-items">
+                @foreach (var item in Model.CartItems)
+                {
+                    <div class="checkout-item">
+                        <div class="checkout-item-info">
+                            <div class="checkout-item-name">@item.Name</div>
+                            <div class="checkout-item-price">€@item.Price.ToString("0.00")</div>
+                        </div>
+                        <div class="checkout-item-qty">Aantal: @item.Aantal</div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="checkout-details">
+            <h3>Gegevens</h3>
+            <form method="post" autocomplete="off">
+                <div class="detail-row">
+                    <label for="Naam" class="detail-label">Naam</label>
+                    <input asp-for="Naam" id="Naam" class="checkout-input" required />
+                </div>
+                <div class="detail-row">
+                    <label for="Adres" class="detail-label">Adres</label>
+                    <input asp-for="Adres" id="Adres" class="checkout-input" required />
+                </div>
+                <button type="submit" class="checkout-finish-btn">Afronden</button>
+            </form>
+        </div>
+    </div>
+</div>
+

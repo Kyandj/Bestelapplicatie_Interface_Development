@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Collections.Generic;
 using DataAccessLayer.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace KE03_INTDEV_SE_1_Base.Pages
 {
@@ -38,4 +39,3 @@ namespace KE03_INTDEV_SE_1_Base.Pages
         }
     }
 }
-

@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.Interfaces;
 using DataAccessLayer.Models;
+using DataAccessLayer.Repositories;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,12 @@ namespace KE03_INTDEV_SE_1_Base.Services
     public class CartService : ICartService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IProductRepository _productRepository;
 
-        public CartService(IHttpContextAccessor httpContextAccessor)
+        public CartService(IHttpContextAccessor httpContextAccessor, IProductRepository productRepository)
         {
             _httpContextAccessor = httpContextAccessor;
+            _productRepository = productRepository;
         }
 
         public List<CartItem> GetCart()
@@ -46,15 +49,53 @@ namespace KE03_INTDEV_SE_1_Base.Services
                 });
             }
 
-            _httpContextAccessor.HttpContext!.Session.SetString("Cart", JsonSerializer.Serialize(cart));
+            SaveCart(cart);
         }
+
         public void AddToCart(int productId, int quantity)
         {
+            var cart = GetCart();
+            var item = cart.FirstOrDefault(i => i.ProductId == productId);
+            if (item != null)
+            {
+                item.Aantal += quantity;
+            }
+            else
+            {
+                var product = _productRepository.GetProductById(productId);
+                if (product != null)
+                {
+                    cart.Add(new CartItem
+                    {
+                        ProductId = product.Id,
+                        Name = product.Name,
+                        Price = product.Price,
+                        Aantal = quantity
+                    });
+                }
+            }
+            SaveCart(cart);
         }
 
         public void RemoveFromCart(int productId, int quantity)
         {
+            var cart = GetCart();
+            var item = cart.FirstOrDefault(i => i.ProductId == productId);
+            if (item != null)
+            {
+                item.Aantal -= quantity;
+                if (item.Aantal <= 0)
+                {
+                    cart.Remove(item);
+                }
+            }
+            SaveCart(cart);
         }
 
+        private void SaveCart(List<CartItem> cart)
+        {
+            _httpContextAccessor.HttpContext!.Session.SetString("Cart", JsonSerializer.Serialize(cart));
+        }
     }
 }
+    

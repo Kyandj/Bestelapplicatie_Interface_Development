@@ -2,81 +2,87 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using KE03_INTDEV_SE_1_Base.Services;
 using DataAccessLayer.Models;
-using DataAccessLayer;
-using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using DataAccessLayer.Interfaces;
+using System;
+using System.Linq;
 
 namespace KE03_INTDEV_SE_1_Base.Pages
 {
     public class AfrekenpaginaModel : PageModel
     {
         private readonly CartService _cartService;
-        private readonly MatrixIncDbContext _db;
+        private readonly IOrderRepository _orderRepository;
 
-        public List<CartItem> Cart { get; set; } = new();
+        private readonly IProductRepository _productRepository;
 
-        [BindProperty]
-        public string Naam { get; set; } = "";
-
-        [BindProperty]
-        public string Adres { get; set; } = "";
-
-        public AfrekenpaginaModel(CartService cartService, MatrixIncDbContext db)
+        public AfrekenpaginaModel(CartService cartService, IOrderRepository orderRepository, IProductRepository productRepository)
         {
             _cartService = cartService;
-            _db = db;
+            _orderRepository = orderRepository;
+            _productRepository = productRepository;
         }
+
+
+        public List<CartItem> CartItems { get; set; } = new();
+
+        [BindProperty]
+        public string Naam { get; set; } = string.Empty;
+
+        [BindProperty]
+        public string Adres { get; set; } = string.Empty;
 
         public void OnGet()
         {
-            Cart = _cartService.GetCart();
+            CartItems = _cartService.GetCart();
         }
 
+        private void ClearCart()
+        {
+            _cartService.GetType().GetMethod("ClearCart")?.Invoke(_cartService, null);
+        }
         public IActionResult OnPost()
         {
-            Cart = _cartService.GetCart();
-            if (!ModelState.IsValid || Cart.Count == 0)
-            {
+            CartItems = _cartService.GetCart();
+
+            if (!ModelState.IsValid)
                 return Page();
-            }
 
-            // 1. Zoek bestaande klant of maak nieuwe aan
-            var customer = _db.Customers.FirstOrDefault(c => c.Name == Naam && c.Address == Adres);
-            if (customer == null)
-            {
-                customer = new Customer { Name = Naam, Address = Adres, Active = true };
-                _db.Customers.Add(customer);
-                _db.SaveChanges();
-            }
+            decimal totaalPrijs = CartItems.Sum(item => item.Price * item.Aantal);
 
-            // 2. Maak nieuwe order aan
-            var order = new Order
+            var customer = new Customer
             {
-                CustomerId = customer.Id,
-                OrderDate = DateTime.Now
+                Name = Naam,
+                Address = Adres
             };
 
-            // 3. Voeg producten toe aan de order
-            foreach (var item in Cart)
+            var order = new Order
             {
-                var product = _db.Products.FirstOrDefault(p => p.Id == item.ProductId);
+                Customer = customer,
+                OrderDate = DateTime.Now,
+                Status = "Pending"
+            };
+
+            foreach (var item in CartItems)
+            {
+                var product = _productRepository.GetProductById(item.ProductId);
                 if (product != null)
                 {
-                    // Voeg het product meerdere keren toe als het aantal > 1 is
-                    for (int i = 0; i < item.Aantal; i++)
-                    {
-                        order.Products.Add(product);
-                    }
+                    order.Products.Add(product);
                 }
             }
 
-            _db.Orders.Add(order);
-            _db.SaveChanges();
+            // 1. Sla de order op met status Pending
+            _orderRepository.AddOrder(order);
 
-            // 4. Winkelmandje legen
-            HttpContext.Session.Remove("Cart");
+            // 2. Zet de status op Betaald en update de order
+            order.Status = "Betaald";
+            _orderRepository.UpdateOrder(order);
 
-            // 5. Redirect naar afrondpagina
-            return RedirectToPage("/Afgerondpagina");
+            ClearCart();
+
+            return RedirectToPage("Afgerondpagina");
         }
+
     }
 }

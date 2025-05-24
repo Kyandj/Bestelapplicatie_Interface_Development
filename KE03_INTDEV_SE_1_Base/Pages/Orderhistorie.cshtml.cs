@@ -1,28 +1,31 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using DataAccessLayer;
 using DataAccessLayer.Models;
+using DataAccessLayer.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace KE03_INTDEV_SE_1_Base.Pages
 {
     public class OrderhistorieModel : PageModel
     {
-        private readonly MatrixIncDbContext _db;
+        private readonly IOrderRepository _orderRepository;
 
-        public Order LaatsteBestelling { get; set; }
-
-        public OrderhistorieModel(MatrixIncDbContext db)
+        public OrderhistorieModel(IOrderRepository orderRepository)
         {
-            _db = db;
+            _orderRepository = orderRepository;
         }
+
+        public List<Order> Orders { get; set; } = new();
 
         public void OnGet()
         {
-            LaatsteBestelling = _db.Orders
-                .Include(o => o.Customer)
-                .Include(o => o.Products)
+            Orders = _orderRepository.GetAllOrders()
+                .Where(o => o.Status == "Betaald")
                 .OrderByDescending(o => o.OrderDate)
-                .FirstOrDefault();
+                .ToList();
         }
+
+
     }
 }
+

@@ -15,6 +15,7 @@ namespace KE03_INTDEV_SE_1_Base
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddScoped<CartService>();
 
+
             builder.Services.AddDbContext<MatrixIncDbContext>(
                 options => options.UseSqlite("Data Source=MatrixInc.db"));
 

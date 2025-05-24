@@ -1,40 +1,66 @@
 ﻿@page
 @model KE03_INTDEV_SE_1_Base.Pages.OrderhistorieModel
-@{
-    ViewData["Title"] = "Mijn Bestelling";
-}
 
-<div class="bestelling-container">
-    <h1>Mijn Laatste Bestelling</h1>
+<div class="order-history-container">
+    <a asp-page="/Index" class="header-button">
+        &#8592; Terug
+    </a>
 
-    @if (Model.LaatsteBestelling != null)
+    <h2>Mijn Bestellingen</h2>
+
+    @if (Model.Orders == null || !Model.Orders.Any())
     {
-        <div class="bestelling-info">
-            <div class="bestelling-header">
-                <p><strong>Besteld op:</strong> @Model.LaatsteBestelling.OrderDate.ToString("dd-MM-yyyy HH:mm")</p>
-                <p><strong>Naam:</strong> @Model.LaatsteBestelling.Customer.Name</p>
-                <p><strong>Adres:</strong> @Model.LaatsteBestelling.Customer.Address</p>
-            </div>
-
-            <h2>Producten</h2>
-            <ul class="product-lijst">
-                @foreach (var product in Model.LaatsteBestelling.Products)
-                {
-                    <li class="product-item">
-                        <span>@product.Name</span>
-                        <span>€ @product.Price</span>
-                    </li>
-                }
-            </ul>
-
-            <div class="bestelling-totaal">
-                <strong>Totaal:</strong>
-                € @Model.LaatsteBestelling.Products.Sum(p => p.Price)
-            </div>
+        <div class="alert alert-info text-center">
+            Er zijn nog geen bestellingen gevonden.
         </div>
     }
     else
     {
-        <p>Geen bestelling gevonden.</p>
+        <div class="order-list">
+            @foreach (var order in Model.Orders)
+            {
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Orderdatum:</strong> @(order.OrderDate != null ? order.OrderDate.ToString("dd-MM-yyyy HH:mm") : "Onbekend")
+                        </div>
+                        <div>
+                            <strong>Klant:</strong> @(order.Customer?.Name ?? "Onbekend")
+                        </div>
+                        <div>
+                            <strong>Totaal:</strong> €
+                            @(
+                                order.Products != null && order.Products.Any()
+                                ? order.Products.Sum(p => p.Price).ToString("0.00")
+                                : "0.00"
+                                )
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="mb-2">Producten:</h6>
+                        @if (order.Products != null && order.Products.Any())
+                        {
+                            <ul class="list-group list-group-flush">
+                                @foreach (var product in order.Products)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>
+                                            <strong>@product.Name</strong>
+                                            <span class="text-muted ms-2">@product.Description</span>
+                                        </span>
+                                        <span>€@product.Price.ToString("0.00")</span>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <div class="text-muted">Geen producten gevonden voor deze order.</div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
     }
 </div>
+
