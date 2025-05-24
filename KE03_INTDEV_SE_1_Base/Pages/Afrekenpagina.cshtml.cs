@@ -72,12 +72,9 @@ namespace KE03_INTDEV_SE_1_Base.Pages
                 }
             }
 
-            // 1. Sla de order op met status Pending
             _orderRepository.AddOrder(order);
 
-            // 2. Zet de status op Betaald en update de order
-            order.Status = "Betaald";
-            _orderRepository.UpdateOrder(order);
+
 
             ClearCart();
 

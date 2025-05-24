@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer.Models
 {
@@ -13,10 +9,9 @@ namespace DataAccessLayer.Models
         public DateTime OrderDate { get; set; }
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }
-        public ICollection<Product> Products { get; } = new List<Product>();
-        public string Status { get; set; } = "Pending";
+        public string Status { get; set; }
+        public ICollection<Product> Products { get; set; } = new List<Product>();
     }
-
 
 
 }

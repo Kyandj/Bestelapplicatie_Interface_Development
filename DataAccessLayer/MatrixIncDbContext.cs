@@ -5,9 +5,7 @@ namespace DataAccessLayer
 {
     public class MatrixIncDbContext : DbContext
     {
-        public MatrixIncDbContext(DbContextOptions<MatrixIncDbContext> options) : base(options)
-        {
-        }
+        public MatrixIncDbContext(DbContextOptions<MatrixIncDbContext> options) : base(options) { }
 
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -16,25 +14,9 @@ namespace DataAccessLayer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Customer>()
-                .HasMany(c => c.Orders)
-                .WithOne(o => o.Customer)
-                .HasForeignKey(o => o.CustomerId).IsRequired();
-
-            //modelBuilder.Entity<Order>()
-            //    .HasOne(o => o.Customer)
-            //    .WithMany(c => c.Orders)
-            //    .OnDelete(DeleteBehavior.Restrict);
-
-            modelBuilder.Entity<Product>()
-                .HasMany(p => p.Orders)
-                .WithMany(o => o.Products);
-
-            modelBuilder.Entity<Part>()
-                .HasMany(p => p.Products)
-                .WithMany(p => p.Parts);
-
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.Products)
+                .WithMany(p => p.Orders);
         }
     }
 }

@@ -22,7 +22,7 @@
                 <div class="card mb-4 shadow-sm">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <div>
-                            <strong>Orderdatum:</strong> @(order.OrderDate != null ? order.OrderDate.ToString("dd-MM-yyyy HH:mm") : "Onbekend")
+                            <strong>Orderdatum:</strong> @(order.OrderDate.ToString("dd-MM-yyyy HH:mm"))
                         </div>
                         <div>
                             <strong>Klant:</strong> @(order.Customer?.Name ?? "Onbekend")
@@ -48,7 +48,9 @@
                                             <strong>@product.Name</strong>
                                             <span class="text-muted ms-2">@product.Description</span>
                                         </span>
-                                        <span>€@product.Price.ToString("0.00")</span>
+                                        <span>
+                                            €@product.Price.ToString("0.00")
+                                        </span>
                                     </li>
                                 }
                             </ul>
@@ -63,4 +65,3 @@
         </div>
     }
 </div>
-
