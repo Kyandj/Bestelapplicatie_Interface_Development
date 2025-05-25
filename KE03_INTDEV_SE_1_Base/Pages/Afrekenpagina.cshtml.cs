@@ -37,10 +37,7 @@ namespace KE03_INTDEV_SE_1_Base.Pages
             CartItems = _cartService.GetCart();
         }
 
-        private void ClearCart()
-        {
-            _cartService.GetType().GetMethod("ClearCart")?.Invoke(_cartService, null);
-        }
+        
         public IActionResult OnPost()
         {
             CartItems = _cartService.GetCart();
@@ -74,9 +71,10 @@ namespace KE03_INTDEV_SE_1_Base.Pages
 
             _orderRepository.AddOrder(order);
 
+            order.Status = "Betaald";
+            _orderRepository.UpdateOrder(order);
 
-
-            ClearCart();
+            _cartService.ClearCart();
 
             return RedirectToPage("Afgerondpagina");
         }

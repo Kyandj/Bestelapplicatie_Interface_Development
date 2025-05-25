@@ -18,6 +18,11 @@ namespace KE03_INTDEV_SE_1_Base.Services
             _httpContextAccessor = httpContextAccessor;
             _productRepository = productRepository;
         }
+        public void ClearCart()
+        {
+            SaveCart(new List<CartItem>());
+        }
+
 
         public List<CartItem> GetCart()
         {
